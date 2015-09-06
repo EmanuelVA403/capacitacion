@@ -8,7 +8,7 @@ $data = "anuncia2_frontera";
 $serv = "localhost";
 $user = "root";
 $pass = "";
-$data = "f403";
+$data = "capacitacion";
 
 ### FUNCIONES DE SEGURIDAD ###
 function xss($vuln){

@@ -7,14 +7,14 @@ if ( isset($_POST['nombre']) ){
 	$login			= mysql_real_escape_string($_POST['login']);
 	$pass			= mysql_real_escape_string($_POST['pass']);
 	$meses  		= mysql_real_escape_string($_POST['meses']);
-	$tipo_usuario 	= mysql_real_escape_string($_POST['tipo_usuario']);
+	$tipo_usuario 	= mysql_real_escape_string($_POST['tipo']);
 	//$contacto  	= mysql_real_escape_string($_POST['contacto']);
 	//$correo  	= mysql_real_escape_string($_POST['correo']);
 	//$rfc  		= mysql_real_escape_string($_POST['rfc']);
 
 	if ( mysql_query("INSERT INTO usuarios SET nombre='".$nombre."',login='".$login."',pass='".$pass."',fecha_expira=date_add(CURDATE(), INTERVAL ".$meses." MONTH),tipo_usuario='".$tipo_usuario."'") ){
 		$errorMsg = '<div class="alert alert-success">
-				<i class="fa fa-check"></i> Cliente agregado correctamente.
+				<i class="fa fa-check"></i> Usuario agregado correctamente.
 			</div>';
 	} else {
 		$errorMsg = '<div class="alert alert-danger">
@@ -30,7 +30,7 @@ if ( isset($_POST['nombre']) ){
 				<div class="pull-right">
 					<a href="" class="return"><i class="fa fa-mail-reply"></i> Regresar</a>
 				</div>
-				<i class="fa fa-plus icon"></i> Agregar Cliente
+				<i class="fa fa-plus icon"></i> Agregar Usuario
 			</header>
 			<div class="panel-body">
 				<form class="bs-example form-horizontal" action="" method="post">
@@ -49,7 +49,7 @@ if ( isset($_POST['nombre']) ){
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Nombre</label>
 								<div class="col-lg-9">
-									<input type="text" name="nombre" class="form-control" placeholder="">
+									<input type="text" name="nombre" class="form-control" placeholder="Nombre de usuario">
 								</div>
 							</div>
 						</div>
@@ -57,9 +57,9 @@ if ( isset($_POST['nombre']) ){
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Tipo usuario</label>
 								<div class="col-lg-9">
-									<select class="form-control" id="option">
-											<option>Usuario</option>	
-											<option>Administrador</option>
+									<select class="form-control" id="option" name="tipo">
+											<option value="0">Usuario</option>	
+											<option value="1">Administrador</option>
 										</select>
 									<!-- <input type="text" name="contacto" class="form-control" placeholder="Persona de contacto"> -->
 								</div>

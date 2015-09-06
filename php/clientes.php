@@ -1,10 +1,11 @@
 <section class="panel panel-default pos-rlt clearfix">
 
-	<header class="panel-heading"> <i class="fa fa-list"></i> Usuarios </header>
+
+	<header class="panel-heading"> <i class="fa fa-users icon"></i> Usuarios </header>
 	
 	<div class="row wrapper">
 		<div class="col-sm-2 m-b-xs">
-			<a href="admin.php?m=clientesAgregar" class="pull-left btn btn-sm btn-success"><i class="fa fa-plus"></i> Nueva Orden</a>
+			<a href="admin.php?m=clientesAgregar" class="pull-left btn btn-sm btn-success"><i class="fa fa-plus"></i> Nuevo usuario</a>
 		</div>
 		<div class="col-sm-7 m-b-xs text-center">
 			<!-- <a href="" class="btn btn-default btn-sm">Cuentas por Cobrar</a>
@@ -29,6 +30,73 @@
 				</tr>
 			</thead>
 			<tbody>
+				<?php
+					if ( isset($_GET['del']) ){
+						$del = mysql_real_escape_string($_GET['del']);
+						mysql_query("DELETE FROM usuarios WHERE id_usuario='".$del."'");
+					}
+
+					if ( isset($_GET['buscar']) ){
+						$buscar = mysql_real_escape_string($_GET['buscar']);
+						$consulta  = "SELECT * FROM usuarios WHERE 
+							(nombre LIKE '%".$buscar."%' OR 
+								login LIKE '%".$buscar."%' 
+							ORDER BY nombre ASC";
+							$url = "admin.php?m=clientes&buscar=".$buscar;
+					} else {
+						$consulta  = "SELECT * FROM capacitacion.usuarios ORDER BY nombre ASC";
+						$url = "admin.php?m=clientes";
+					}
+				?>
+				<?php 
+							##### PAGINADOR #####
+					$rows_per_page = 20;
+
+					if(isset($_GET['pag']))
+						$page = mysql_real_escape_string($_GET['pag']);
+					else if (@$_GET['pag'] == "0")
+						$page = 1;
+					else 
+						$page = 1;
+
+					$num_rows 		= mysql_num_rows(mysql_query($consulta));
+					#if (!$num_rows)
+ 					#die("mySQL error: ". mysql_error());  
+					$lastpage		= ceil($num_rows / $rows_per_page);    		
+					$page     = (int)$page;
+					if($page > $lastpage){
+						$page = $lastpage;
+					}
+					if($page < 1){
+						$page = 1;
+					}
+					$limit 		= 'LIMIT '. ($page -1) * $rows_per_page . ',' .$rows_per_page;
+					$consulta  .=" $limit";
+
+					#echo $consulta;
+					$consulta = mysql_query($consulta);
+					if (!$consulta)
+ 					die("mySQL error: ". mysql_error());  
+					##### PAGINADOR #####
+
+					while($q = mysql_fetch_object($consulta)){
+				?>
+				<tr>
+
+					<td><?php echo $q->nombre; ?></td>
+					<td><?php echo $q->login; ?></td>
+					<td><?php echo $q->tipo_usuario; ?></td>
+					<td><?php echo $q->fecha_expira; ?></td>
+					<td>
+						<a href="admin.php?m=clientesEditar&id=<?php echo $q->id_usuario; ?>" class="btn btn-sm btn-default"> <i class="fa fa-pencil"></i> </a> &nbsp;&nbsp;&nbsp;
+						<a href="admin.php?m=clientes&del=<?php echo $q->id_usuario; ?>" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> </a>
+					</td>
+				</tr>			
+				<?php
+							}
+				?>
+
+
 
 				<tr>
 					<td>columna 1</td>

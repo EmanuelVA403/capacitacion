@@ -6,7 +6,7 @@
 #	die;
 #}
 
-#include 'db.php';
+include 'db.php';
 
 if ( isset($_GET['m']) ){
 	switch($_GET['m']) {
@@ -23,6 +23,18 @@ if ( isset($_GET['m']) ){
 		break;
 		case "categorias":
 			$paginaPHP = "php/categorias.php";
+		break;
+		case "categoriasAgregar":
+			$paginaPHP = "php/categoriasAgregar.php";
+		break;
+		case "subCategorias":
+			$paginaPHP = "php/subCategorias.php";
+		break;
+		case "archivos":
+			$paginaPHP = "php/archivos.php";
+		break;
+		case "archivosAgregar":
+			$paginaPHP = "php/archivosAgregar.php";
 		break;
 
 	}
@@ -75,21 +87,15 @@ $errorMsg = "";
 								<!-- nav -->
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav">
-										<li> <a href="admin.php?m=clientes"> <i class="fa fa-angle-right"></i> <span>Clientes</span> </a> </li>
-										<li class="">
-											<a href="admin.php?m=categorias"> <i class="fa fa-angle-right"></i> <span>Categor&iacute;as</span> </a> 
-
-
-<!-- 
-											<a href="#webpage" class=""><i class="fa fa-angle-right icon"></i> 
-												<span class="pull-right"> <i class="fa fa-angle-down text"></i> 
-													<i class="fa fa-angle-up text-active"></i> </span> 
-													<span>Categorias</span> 
-												</a>
-											<ul class="nav lt" style="display: none;">
-												<li> <a href="admin.php?m=blog"> <i class="fa fa-angle-right"></i> <span>Usuarios</span> </a> </li>
-												<li> <a href="admin.php?m=blog"> <i class="fa fa-angle-right"></i> <span>Clientes</span> </a> </li>
-											</ul> -->
+										<li> <a href="admin.php?m=clientes"> <i class="fa fa-users icon"></i> <span>Usuarios</span> </a> 
+										</li>
+										<li><a href="admin.php?m=categorias"> <i class="fa fa-list"></i> <span>Categor&iacute;as</span> </a> 
+										</li>
+										<li>
+											<a href="admin.php?m=subCategorias"> <i class="fa fa-folder"></i> <span>Carpetas</span> </a> 
+										</li>
+										<li>
+											<a href="admin.php?m=archivos"> <i class="fa fa-file-text icon"></i> <span>Archivos</span> </a> 
 										</li>
 									</ul>
 								</nav>
